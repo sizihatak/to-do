@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.todo.MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_main_tasklist"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.todo.presentation.MainViewModel"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:context="com.example.todo.presentation.MainActivity">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_main_addbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_white"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_main_tasklist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-</android.support.design.widget.CoordinatorLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_main_addbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:onClick="@{viewModel::showAddTaskScreen}"
+            app:srcCompat="@drawable/ic_add_white"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>
