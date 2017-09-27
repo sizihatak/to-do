@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,8 +14,39 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!--///////////////-Views-///////////////-->
+    <!--TextView-->
+    <style name="title" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
+    <style name="radioButton" parent="Theme.AppCompat.Light">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="radioButtonPriorityHigh" parent="radioButton">
+        <item name="colorControlNormal">@color/materialRed</item>
+        <item name="colorControlActivated">@color/materialRed</item>
+    </style>
+
+    <style name="radioButtonPriorityMedium" parent="radioButton">
+        <item name="colorControlNormal">@color/materialOrange</item>
+        <item name="colorControlActivated">@color/materialOrange</item>
+    </style>
+
+    <style name="radioButtonPriorityLow" parent="radioButton">
+        <item name="colorControlNormal">@color/materialYellow</item>
+        <item name="colorControlActivated">@color/materialYellow</item>
+    </style>
 </resources>

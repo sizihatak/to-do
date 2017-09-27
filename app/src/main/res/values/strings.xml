@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">ToDo</string>
+
+    <!--AddTask Screen-->
+    <string name="addTask_title">TITLE</string>
+    <string name="addTask_description">DESCRIPTION</string>
+    <string name="addTask_high">high</string>
+    <string name="addTask_medium">medium</string>
+    <string name="addTask_low">low</string>
+    <string name="addTask_add">add</string>
+    <string name="addTask_priority">Priority</string>
+
+    <!--Errors-->
+    <string name="error_addTask_emptyField">Cannot be empty</string>
 </resources>
