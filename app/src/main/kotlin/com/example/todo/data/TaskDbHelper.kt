@@ -22,7 +22,7 @@ class TaskDbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
         db?.execSQL(CREATE_TABLE)
     }
 
-    override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
+    override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
         db?.execSQL("DROP TABLE IF EXISTS " + TaskContract.TaskEntry.TABLE_NAME)
         onCreate(db)
     }

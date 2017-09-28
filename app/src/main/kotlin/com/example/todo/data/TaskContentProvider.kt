@@ -1,9 +1,11 @@
 package com.example.todo.data
 
 import android.content.ContentProvider
+import android.content.ContentUris
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
+import android.database.SQLException
 import android.net.Uri
 
 class TaskContentProvider : ContentProvider() {
@@ -31,16 +33,49 @@ class TaskContentProvider : ContentProvider() {
         return true
     }
 
-    override fun insert(uri: Uri?, p1: ContentValues?): Uri? {
+    override fun insert(uri: Uri?, values: ContentValues?): Uri? {
         val db = taskDbHelper.writableDatabase
 
         val match = uriMatcher.match(uri)
 
-        return null
+        val returnUri: Uri?
+
+        when (match) {
+            TASKS -> {
+                val id = db.insert(TaskContract.TaskEntry.TABLE_NAME, null, values)
+                if (id > 0)
+                    returnUri = ContentUris.withAppendedId(TaskContract.TaskEntry.CONTENT_URI, id)
+                else
+                    throw SQLException("Failed to insert row into $uri")
+            }
+            else -> throw UnsupportedOperationException("Unknown uri: $uri")
+        }
+        context.contentResolver.notifyChange(uri, null)
+        return returnUri
     }
 
-    override fun query(p0: Uri?, p1: Array<out String>?, p2: String?, p3: Array<out String>?, p4: String?): Cursor {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun query(uri: Uri?, projection: Array<out String>?, selection: String?, selectionArgs: Array<out String>?, sortOrder: String?): Cursor {
+        val db = taskDbHelper.readableDatabase
+
+        val match = uriMatcher.match(uri)
+
+        val result: Cursor
+
+        when (match) {
+            TASKS -> {
+                result = db.query(TaskContract.TaskEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                )
+            }
+            else -> throw UnsupportedOperationException("Unknown uri: $uri")
+        }
+        result.setNotificationUri(context.contentResolver, uri)
+        return result
     }
 
     override fun update(p0: Uri?, p1: ContentValues?, p2: String?, p3: Array<out String>?): Int {
