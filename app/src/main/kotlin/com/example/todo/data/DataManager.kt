@@ -6,5 +6,5 @@ import io.reactivex.Single
 
 interface DataManager {
     fun saveTask(task: Task):Single<Uri>
-    fun getTasks(): Single<Task>
+    fun getTasks(): Single<List<Task>>
 }

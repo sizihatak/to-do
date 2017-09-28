@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.example.todo.presentation.tasklist.TaskListViewModel" />
+            type="com.example.todo.presentation.feature.tasklist.TaskListViewModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.todo.presentation.tasklist.TaskListActivity">
+        tools:context=".presentation.feature.tasklist.TaskListActivity">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_main_tasklist"

@@ -1,4 +1,4 @@
-package com.example.todo.presentation.addtask
+package com.example.todo.presentation.feature.addtask
 
 import android.arch.lifecycle.LifecycleActivity
 import android.arch.lifecycle.Observer

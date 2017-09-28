@@ -1,4 +1,4 @@
-package com.example.todo.presentation.tasklist
+package com.example.todo.presentation.feature.tasklist
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.todo.R
 import com.example.todo.databinding.ActivityTasklistBinding
-import com.example.todo.presentation.addtask.AddTaskActivity
+import com.example.todo.presentation.feature.addtask.AddTaskActivity
 
 class TaskListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTasklistBinding

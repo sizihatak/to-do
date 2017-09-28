@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.todo.presentation.addtask.AddTaskViewModel" />
+            type="com.example.todo.presentation.feature.addtask.AddTaskViewModel" />
     </data>
 
 

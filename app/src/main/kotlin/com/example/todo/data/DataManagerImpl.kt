@@ -6,6 +6,7 @@ import android.net.Uri
 import com.example.todo.data.db.TaskContract
 import com.example.todo.presentation.model.Task
 import io.reactivex.Single
+import java.util.*
 
 class DataManagerImpl(private val application: Application) : DataManager {
     override fun saveTask(task: Task): Single<Uri> {
@@ -19,5 +20,5 @@ class DataManagerImpl(private val application: Application) : DataManager {
 
     }
 
-    override fun getTasks(): Single<Task> = Single.just(Task("", "", 0))
+    override fun getTasks(): Single<List<Task>> = Single.just(Collections.emptyList())
 }
