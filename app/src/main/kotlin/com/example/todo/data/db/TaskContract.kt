@@ -1,4 +1,4 @@
-package com.example.todo.data
+package com.example.todo.data.db
 
 import android.net.Uri
 
@@ -7,7 +7,7 @@ class TaskContract {
     companion object {
         const val AUTHORITY: String = "com.example.todo"
         @JvmField
-        val BASE_CONTENT_URI: Uri = Uri.parse("content://$AUTHORITY")
+        val BASE_CONTENT_URI: Uri = Uri.parse("content://${AUTHORITY}")
 
         const val PATH_TASKS = "tasks"
     }

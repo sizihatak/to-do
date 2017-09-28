@@ -1,4 +1,4 @@
-package com.example.todo.data
+package com.example.todo.data.db
 
 import android.content.ContentProvider
 import android.content.ContentUris
