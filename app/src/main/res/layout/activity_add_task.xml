@@ -46,7 +46,7 @@
                 android:id="@+id/editText_addTask_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.description}"
+                android:text="@={viewModel.description, default=asd}"
                 android:hint="@string/addTask_description" />
         </android.support.design.widget.TextInputLayout>
 

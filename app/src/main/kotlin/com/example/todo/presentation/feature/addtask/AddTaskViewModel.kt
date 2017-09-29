@@ -4,7 +4,6 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
-import android.net.Uri
 import android.view.View
 import android.widget.RadioGroup
 import com.example.todo.R
@@ -23,8 +22,7 @@ class AddTaskViewModel(application: Application, private val dataManager: DataMa
     val changeSubmitBackgroundColorObservable: MutableLiveData<Int> = MutableLiveData()
     val titleErrorObservable: MutableLiveData<String> = MutableLiveData()
     val hideKeyboardObservable: MutableLiveData<Boolean> = MutableLiveData()
-    val showToast: PublishSubject<Uri> = PublishSubject.create()
-
+    val closeActivityObservable: PublishSubject<Unit> = PublishSubject.create()
 
     private val red: Int = application.resources.getColor(R.color.materialRed)
     private val orange: Int = application.resources.getColor(R.color.materialOrange)
@@ -39,18 +37,19 @@ class AddTaskViewModel(application: Application, private val dataManager: DataMa
             titleErrorObservable.value = emptyField
             return
         }
-        disposable.add(dataManager.saveTask(Task(title.get(), description.get(), currentTaskPriority))
+        disposable.add(dataManager.saveTask(Task(title.get(),
+                if (description.get() == null) "" else description.get(),
+                currentTaskPriority))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ uri ->
-                    showToast.onNext(uri)
+                .subscribe({
+                    closeActivityObservable.onNext(Unit)
                     disposable.clear()
                 }))
     }
 
     fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         titleErrorObservable.value = ""
-
     }
 
     fun onCheckedChanged(radioGroup: RadioGroup, id: Int) {

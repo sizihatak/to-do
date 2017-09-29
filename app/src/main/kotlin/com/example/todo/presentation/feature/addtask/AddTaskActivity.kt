@@ -7,7 +7,6 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import com.example.todo.R
 import com.example.todo.databinding.ActivityAddTaskBinding
 
@@ -48,8 +47,8 @@ class AddTaskActivity : LifecycleActivity() {
                         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                         imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
                     })
-            showToast
-                    .subscribe { Toast.makeText(applicationContext, it.toString(), Toast.LENGTH_SHORT).show() }
+            closeActivityObservable
+                    .subscribe { finish() }
         }
     }
 }
