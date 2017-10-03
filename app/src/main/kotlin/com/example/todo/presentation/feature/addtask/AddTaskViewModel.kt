@@ -37,9 +37,10 @@ class AddTaskViewModel(application: Application, private val dataManager: DataMa
             titleErrorObservable.value = emptyField
             return
         }
-        disposable.add(dataManager.saveTask(Task(title.get(),
-                if (description.get() == null) "" else description.get(),
-                currentTaskPriority))
+        disposable.add(dataManager.saveTask(
+                Task(title = title.get(),
+                        description = if (description.get() == null) "" else description.get(),
+                        priority = currentTaskPriority))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

@@ -14,11 +14,22 @@ import io.reactivex.subjects.PublishSubject
 class TaskListViewModel(application: Application, private val dataManager: DataManager) : AndroidViewModel(application) {
 
     val onStartAddTaskScreenObserver: PublishSubject<Unit> = PublishSubject.create()
+    val onDeleteTaskObserver: PublishSubject<Int> = PublishSubject.create()
     val listTaskObservable: MutableLiveData<List<Task>> = MutableLiveData()
     private val disposable = CompositeDisposable()
 
     fun showAddTaskScreen(view: View) {
         onStartAddTaskScreenObserver.onNext(Unit)
+    }
+
+    fun deleteTask(position: Int, task: Task) {
+        disposable.add(
+                dataManager.deleteTask(task.id.toString())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({
+                            onDeleteTaskObserver.onNext(position)
+                        }))
     }
 
     fun getTaskList() {

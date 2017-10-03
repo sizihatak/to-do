@@ -10,13 +10,20 @@ import io.reactivex.Single
 
 
 class DataManagerImpl(private val application: Application) : DataManager {
+    override fun deleteTask(id: String): Completable {
+        return Completable.fromCallable {
+            val uri = TaskContract.TaskEntry.CONTENT_URI.buildUpon().appendPath(id).build()
+            application.contentResolver.delete(uri, null, null)
+        }
+    }
+
     override fun saveTask(task: Task): Completable {
         return Completable.fromCallable {
             val contentValues = ContentValues()
             contentValues.put(TaskContract.TaskEntry.COLUMN_TITLE, task.title)
             contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, task.description)
             contentValues.put(TaskContract.TaskEntry.COLUMN_PRIORITY, task.priority)
-            return@fromCallable application.contentResolver.insert(TaskContract.TaskEntry.CONTENT_URI, contentValues)
+            application.contentResolver.insert(TaskContract.TaskEntry.CONTENT_URI, contentValues)
         }
     }
 
@@ -39,10 +46,11 @@ class DataManagerImpl(private val application: Application) : DataManager {
             if (!cursor.moveToPosition(i)) {
                 break
             }
+            val id = cursor.getInt(idIndex)
             val title = cursor.getString(titleIndex)
             val description = cursor.getString(descriptionIndex)
             val priority = cursor.getInt(priorityIndex)
-            list.add(Task(title, description, priority))
+            list.add(Task(id, title, description, priority))
         }
         return list.toList()
     }

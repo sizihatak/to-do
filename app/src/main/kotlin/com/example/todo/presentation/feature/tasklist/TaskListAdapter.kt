@@ -15,7 +15,7 @@ import com.example.todo.presentation.model.Task
 
 class TaskListAdapter : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
 
-    var tasks: List<Task> = emptyList()
+    var tasks: MutableList<Task> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()

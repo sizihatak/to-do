@@ -7,4 +7,5 @@ import io.reactivex.Single
 interface DataManager {
     fun saveTask(task: Task): Completable
     fun getTasks(): Single<List<Task>>
+    fun deleteTask(id: String): Completable
 }
