@@ -13,6 +13,6 @@ public interface TaskDao {
     @Query("DELETE FROM tasks WHERE id=:id")
     fun deleteTask(id: String)
 
-    @Query("SELECT * FROM Users")
+    @Query("SELECT * FROM tasks")
     fun getUser(): Flowable<List<TaskTable>>
 }
