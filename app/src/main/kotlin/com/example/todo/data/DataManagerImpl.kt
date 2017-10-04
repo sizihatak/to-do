@@ -7,18 +7,19 @@ import com.example.todo.data.db.TaskContract
 import com.example.todo.presentation.model.Task
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.internal.operators.completable.CompletableFromAction
 
 
 class DataManagerImpl(private val application: Application) : DataManager {
     override fun deleteTask(id: String): Completable {
-        return Completable.fromCallable {
+        return CompletableFromAction {
             val uri = TaskContract.TaskEntry.CONTENT_URI.buildUpon().appendPath(id).build()
             application.contentResolver.delete(uri, null, null)
         }
     }
 
     override fun saveTask(task: Task): Completable {
-        return Completable.fromCallable {
+        return CompletableFromAction {
             val contentValues = ContentValues()
             contentValues.put(TaskContract.TaskEntry.COLUMN_TITLE, task.title)
             contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, task.description)
