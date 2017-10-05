@@ -6,13 +6,13 @@ import android.arch.persistence.room.Query
 import io.reactivex.Flowable
 
 @Dao
-public interface TaskDao {
+interface TaskDao {
     @Insert
-    fun insertTask(task: TaskTable)
+    fun insertTask(task: TaskEntity)
 
     @Query("DELETE FROM tasks WHERE id=:id")
     fun deleteTask(id: String)
 
-    @Query("SELECT * FROM tasks")
-    fun getUser(): Flowable<List<TaskTable>>
+    @Query("SELECT * FROM tasks ORDER BY priority ASC")
+    fun getTasks(): Flowable<List<TaskEntity>>
 }

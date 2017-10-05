@@ -22,7 +22,7 @@
         <activity android:name=".presentation.feature.addtask.AddTaskActivity"/>
 
         <provider
-            android:name=".data.db.TaskContentProvider"
+            android:name=".data.db.provider.TaskContentProvider"
             android:authorities="com.example.todo"
             android:exported="false"/>
     </application>
