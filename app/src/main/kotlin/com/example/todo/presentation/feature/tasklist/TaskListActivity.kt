@@ -22,9 +22,6 @@ class TaskListActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_tasklist)
         binding.viewModel = ViewModelProviders.of(this, TaskListViewModelFactory(application)).get(TaskListViewModel::class.java)
-        binding.viewModel.onStartAddTaskScreenObserver.subscribe {
-            startActivity(Intent(this, AddTaskActivity::class.java))
-        }
 
         binding.rvMainTasklist.layoutManager = LinearLayoutManager(applicationContext)
         val adapter = TaskListAdapter()
@@ -42,14 +39,22 @@ class TaskListActivity : AppCompatActivity() {
 
         }).attachToRecyclerView(binding.rvMainTasklist)
 
-        binding.viewModel.onDeleteTaskObserver.subscribe { position ->
-            adapter.tasks.removeAt(position)
-            adapter.notifyItemRemoved(position)
-        }
+        subscribeToModel(binding.viewModel, adapter)
+    }
 
-        binding.viewModel.listTaskObservable.observe(this, Observer {
-            it?.let { adapter.tasks = it.toMutableList() }
-        })
+    private fun subscribeToModel(viewModel: TaskListViewModel, adapter: TaskListAdapter) {
+        viewModel.apply {
+            onStartAddTaskScreenObserver.subscribe {
+                startActivity(Intent(this@TaskListActivity, AddTaskActivity::class.java))
+            }
+            onDeleteTaskObserver.subscribe { position ->
+                adapter.tasks.removeAt(position)
+                adapter.notifyItemRemoved(position)
+            }
+            listTaskObservable.observe(this@TaskListActivity, Observer {
+                it?.let { adapter.tasks = it.toMutableList() }
+            })
+        }
     }
 
     override fun onResume() {

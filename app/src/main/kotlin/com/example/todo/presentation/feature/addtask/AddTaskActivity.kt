@@ -20,11 +20,11 @@ class AddTaskActivity : LifecycleActivity() {
         val factory = AddTaskViewModelFactory(application)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task)
         binding.viewModel = ViewModelProviders.of(this, factory).get(AddTaskViewModel::class.java)
-        observe()
+        subscribeToModel(binding.viewModel)
     }
 
-    fun observe() {
-        binding.viewModel.apply {
+    fun subscribeToModel(viewModel:AddTaskViewModel) {
+        viewModel.apply {
             titleErrorObservable
                     .observe(this@AddTaskActivity, Observer { error ->
                         error?.let {
