@@ -1,8 +1,7 @@
 package com.example.todo.presentation.feature.tasklist
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.*
 import android.view.View
 import com.example.todo.data.DataManager
 import com.example.todo.presentation.model.Task
@@ -11,12 +10,16 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
-class TaskListViewModel(application: Application, private val dataManager: DataManager) : AndroidViewModel(application) {
+class TaskListViewModel(application: Application, lifecycle: Lifecycle, private val dataManager: DataManager) : AndroidViewModel(application), LifecycleObserver {
 
     val onStartAddTaskScreenObserver: PublishSubject<Unit> = PublishSubject.create()
     val onDeleteTaskObserver: PublishSubject<Int> = PublishSubject.create()
     val listTaskObservable: MutableLiveData<List<Task>> = MutableLiveData()
     private val disposable = CompositeDisposable()
+
+    init {
+        lifecycle.addObserver(this)
+    }
 
     fun showAddTaskScreen(view: View) {
         onStartAddTaskScreenObserver.onNext(Unit)
@@ -39,5 +42,16 @@ class TaskListViewModel(application: Application, private val dataManager: DataM
                 .subscribe({ list ->
                     listTaskObservable.value = list
                 }))
+    }
+
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onResume(){
+        getTaskList()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy(){
+        disposable.clear()
     }
 }

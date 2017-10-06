@@ -23,7 +23,7 @@ class AddTaskActivity : LifecycleActivity() {
         subscribeToModel(binding.viewModel)
     }
 
-    fun subscribeToModel(viewModel:AddTaskViewModel) {
+    fun subscribeToModel(viewModel: AddTaskViewModel) {
         viewModel.apply {
             titleErrorObservable
                     .observe(this@AddTaskActivity, Observer { error ->
