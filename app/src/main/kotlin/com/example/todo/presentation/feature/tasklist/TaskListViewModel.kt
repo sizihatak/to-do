@@ -11,12 +11,15 @@ import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
-class TaskListViewModel @Inject constructor(application: Application, lifecycle: Lifecycle, private val dataManager: DataManager) : AndroidViewModel(application), LifecycleObserver {
+class TaskListViewModel @Inject constructor(application: Application,
+                                            lifecycle: Lifecycle,
+                                            private val dataManager: DataManager)
+    : AndroidViewModel(application), LifecycleObserver {
 
     val onStartAddTaskScreenObserver: PublishSubject<Unit> = PublishSubject.create()
     val onDeleteTaskObserver: PublishSubject<Int> = PublishSubject.create()
     val listTaskObservable: MutableLiveData<List<Task>> = MutableLiveData()
-    private val disposable = CompositeDisposable()
+    val disposable = CompositeDisposable()
 
     init {
         lifecycle.addObserver(this)
@@ -47,12 +50,12 @@ class TaskListViewModel @Inject constructor(application: Application, lifecycle:
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume(){
+    fun onResume() {
         getTaskList()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onDestroy(){
+    fun onDestroy() {
         disposable.clear()
     }
 }

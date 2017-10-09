@@ -12,6 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.example.todo.presentation.feature.tasklist.TaskListActivity"
+            android:configChanges="keyboardHidden|orientation"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -19,7 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.feature.addtask.AddTaskActivity"/>
+        <activity
+            android:configChanges="keyboardHidden|orientation"
+            android:name=".presentation.feature.addtask.AddTaskActivity"/>
 
         <provider
             android:name=".data.db.provider.TaskContentProvider"
