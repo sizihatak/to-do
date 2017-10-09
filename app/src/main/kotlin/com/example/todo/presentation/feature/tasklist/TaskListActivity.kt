@@ -2,7 +2,6 @@ package com.example.todo.presentation.feature.tasklist
 
 import android.arch.lifecycle.LifecycleActivity
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -10,18 +9,31 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import com.example.todo.R
+import com.example.todo.ToDoApplication
 import com.example.todo.databinding.ActivityTasklistBinding
+import com.example.todo.di.DaggerActivityComponent
+import com.example.todo.di.module.ActivityModule
 import com.example.todo.presentation.feature.addtask.AddTaskActivity
+import javax.inject.Inject
 
 class TaskListActivity : LifecycleActivity() {
     private lateinit var binding: ActivityTasklistBinding
+
+    @Inject
+    lateinit var viewModel: TaskListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tasklist)
 
+        DaggerActivityComponent.builder()
+                .activityModule(ActivityModule(this))
+                .appComponent((application as ToDoApplication).appComponent)
+                .build()
+                .inject(this)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_tasklist)
-        binding.viewModel = ViewModelProviders.of(this, TaskListViewModelFactory(application, lifecycle)).get(TaskListViewModel::class.java)
+        binding.viewModel = viewModel
 
         binding.rvMainTasklist.layoutManager = LinearLayoutManager(applicationContext)
         val adapter = TaskListAdapter()

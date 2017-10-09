@@ -2,24 +2,36 @@ package com.example.todo.presentation.feature.addtask
 
 import android.arch.lifecycle.LifecycleActivity
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import com.example.todo.R
+import com.example.todo.ToDoApplication
 import com.example.todo.databinding.ActivityAddTaskBinding
+import com.example.todo.di.DaggerActivityComponent
+import com.example.todo.di.module.ActivityModule
+import javax.inject.Inject
 
 class AddTaskActivity : LifecycleActivity() {
 
     lateinit var binding: ActivityAddTaskBinding
 
+    @Inject
+    lateinit var viewModel: AddTaskViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_task)
-        val factory = AddTaskViewModelFactory(application)
+
+        DaggerActivityComponent.builder()
+                .activityModule(ActivityModule(this))
+                .appComponent((application as ToDoApplication).appComponent)
+                .build()
+                .inject(this)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task)
-        binding.viewModel = ViewModelProviders.of(this, factory).get(AddTaskViewModel::class.java)
+        binding.viewModel = viewModel
         subscribeToModel(binding.viewModel)
     }
 

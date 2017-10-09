@@ -10,7 +10,7 @@ import io.reactivex.Flowable
 import io.reactivex.internal.operators.completable.CompletableFromAction
 
 
-class DataManagerImpl(private val application: Application) : DataManager {
+class DataManagerImpl (private val application: Application) : DataManager {
     override fun deleteTask(id: String): Completable {
         return CompletableFromAction {
             val uri = TaskContract.TaskEntry.CONTENT_URI.buildUpon().appendPath(id).build()

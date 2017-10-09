@@ -13,9 +13,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import javax.inject.Inject
 
 
-class AddTaskViewModel(application: Application, private val dataManager: DataManager) : AndroidViewModel(application) {
+class AddTaskViewModel @Inject constructor(application: Application, private val dataManager: DataManager) : AndroidViewModel(application) {
 
     val title = ObservableField<String>()
     val description = ObservableField<String>()

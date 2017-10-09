@@ -9,8 +9,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import javax.inject.Inject
 
-class TaskListViewModel(application: Application, lifecycle: Lifecycle, private val dataManager: DataManager) : AndroidViewModel(application), LifecycleObserver {
+class TaskListViewModel @Inject constructor(application: Application, lifecycle: Lifecycle, private val dataManager: DataManager) : AndroidViewModel(application), LifecycleObserver {
 
     val onStartAddTaskScreenObserver: PublishSubject<Unit> = PublishSubject.create()
     val onDeleteTaskObserver: PublishSubject<Int> = PublishSubject.create()
