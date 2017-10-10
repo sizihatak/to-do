@@ -44,7 +44,9 @@ class TaskListViewModel @Inject constructor(application: Application,
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ list ->
-                    listTaskObservable.value = list
+                    listTaskObservable.value = emptyList()
+                },{
+                    println(it)
                 }))
     }
 

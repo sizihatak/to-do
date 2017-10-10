@@ -35,6 +35,9 @@ android {
     dataBinding {
         enabled = true
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
     lintOptions {
         abortOnError false
     }
@@ -75,4 +78,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:2.7.22"
     testCompile "org.hamcrest:hamcrest-all:1.3"
+    testCompile 'org.powermock:powermock-reflect:1.6.6'
 }
