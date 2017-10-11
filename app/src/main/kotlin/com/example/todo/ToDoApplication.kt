@@ -5,7 +5,7 @@ import com.example.todo.di.AppComponent
 import com.example.todo.di.DaggerAppComponent
 import com.example.todo.di.module.AppModule
 
-class ToDoApplication : Application() {
+open class ToDoApplication : Application() {
 
     lateinit var appComponent: AppComponent
 
