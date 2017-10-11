@@ -16,7 +16,9 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 
-class AddTaskViewModel @Inject constructor(application: Application, private val dataManager: DataManager) : AndroidViewModel(application) {
+class AddTaskViewModel
+@Inject constructor(application: Application, private val dataManager: DataManager)
+    : AndroidViewModel(application) {
 
     val title = ObservableField<String>()
     val description = ObservableField<String>()

@@ -1,6 +1,7 @@
 package com.example.todo.presentation.feature.tasklist
 
 import android.app.Application
+import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.Lifecycle
 import android.view.View
 import com.example.todo.data.DataManager
@@ -13,16 +14,15 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import mock
 import org.junit.Assert.assertNotNull
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import org.powermock.reflect.Whitebox
-import android.arch.core.executor.testing.InstantTaskExecutorRule
-import org.junit.Rule
 
 
 class TaskListViewModelTest {
@@ -123,5 +123,3 @@ class TaskListViewModelTest {
         verify(compositeDisposable).clear()
     }
 }
-
-inline fun <reified T : Any> mock() = Mockito.mock(T::class.java)
