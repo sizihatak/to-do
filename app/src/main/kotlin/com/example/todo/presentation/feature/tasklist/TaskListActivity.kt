@@ -17,7 +17,7 @@ import com.example.todo.presentation.feature.addtask.AddTaskActivity
 import javax.inject.Inject
 
 class TaskListActivity : LifecycleActivity() {
-    private lateinit var binding: ActivityTasklistBinding
+    lateinit var binding: ActivityTasklistBinding
 
     @Inject
     lateinit var viewModel: TaskListViewModel
