@@ -19,6 +19,8 @@ import javax.inject.Inject
 class TaskListActivity : LifecycleActivity() {
     lateinit var binding: ActivityTasklistBinding
 
+    lateinit var adapter: TaskListAdapter
+
     @Inject
     lateinit var viewModel: TaskListViewModel
 
@@ -36,7 +38,7 @@ class TaskListActivity : LifecycleActivity() {
         binding.viewModel = viewModel
 
         binding.rvMainTasklist.layoutManager = LinearLayoutManager(applicationContext)
-        val adapter = TaskListAdapter()
+        adapter = TaskListAdapter()
         binding.rvMainTasklist.adapter = adapter
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?,
@@ -51,10 +53,10 @@ class TaskListActivity : LifecycleActivity() {
 
         }).attachToRecyclerView(binding.rvMainTasklist)
 
-        subscribeToModel(binding.viewModel, adapter)
+        subscribeToModel()
     }
 
-    private fun subscribeToModel(viewModel: TaskListViewModel, adapter: TaskListAdapter) {
+    private fun subscribeToModel() {
         viewModel.apply {
             onStartAddTaskScreenObserver.subscribe {
                 startActivity(Intent(this@TaskListActivity, AddTaskActivity::class.java))
