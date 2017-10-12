@@ -21,7 +21,7 @@ import org.robolectric.Shadows.shadowOf
 
 
 @RunWith(RobolectricTestRunner::class)
-@Config(constants = BuildConfig::class)
+@Config(constants = BuildConfig::class, sdk = intArrayOf(25))
 class TaskListActivityTest {
 
     lateinit var activity: TaskListActivity
@@ -34,10 +34,12 @@ class TaskListActivityTest {
     @Test
     fun checkNotNullActivity() {
         assertNotNull(activity)
-        assertNotNull(activity.binding)
-        assertNotNull(activity.viewModel)
-        assertNotNull(activity.binding.rvMainTasklist)
-        assertNotNull(activity.binding.rvMainTasklist.adapter)
+        activity.apply {
+            assertNotNull(viewModel)
+            assertNotNull(binding)
+            assertNotNull(binding.rvMainTasklist)
+            assertNotNull(binding.rvMainTasklist.adapter)
+        }
     }
 
     @Test
@@ -64,15 +66,15 @@ class TaskListActivityTest {
 
     @Test
     fun checkSetTaskList() {
-        val adapterMock = TaskListAdapter()
-        activity.adapter = adapterMock
+        activity.apply {
+            val adapterMock = TaskListAdapter()
+            adapter = adapterMock
 
-        val testTask: Task = mock()
+            val testTask: Task = mock()
+            val taskListMock: List<Task> = listOf(testTask)
 
-        val taskListMock: List<Task> = listOf(testTask)
-
-        activity.viewModel.listTaskObservable.value = taskListMock
-
-        assertEquals(testTask, activity.adapter.tasks[0])
+            viewModel.listTaskObservable.value = taskListMock
+            assertEquals(testTask, adapter.tasks[0])
+        }
     }
 }
