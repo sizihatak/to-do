@@ -1,23 +1,20 @@
 package com.example.todo.presentation.feature.tasklist
 
-import android.content.Context
 import com.example.todo.BuildConfig
-import org.junit.Before
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.Robolectric
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
-import org.robolectric.shadows.ShadowIntent
-import android.content.Intent
 import com.example.todo.presentation.feature.addtask.AddTaskActivity
 import com.example.todo.presentation.model.Task
 import com.nhaarman.mockito_kotlin.verify
 import mock
-import org.apache.tools.ant.TaskAdapter
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
 import org.mockito.Mockito
+import org.robolectric.Robolectric
+import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
+import org.robolectric.annotation.Config
 
 
 @RunWith(RobolectricTestRunner::class)
@@ -32,7 +29,7 @@ class TaskListActivityTest {
     }
 
     @Test
-    fun checkNotNullActivity() {
+    fun testNotNullActivity() {
         assertNotNull(activity)
         activity.apply {
             assertNotNull(viewModel)
@@ -43,7 +40,7 @@ class TaskListActivityTest {
     }
 
     @Test
-    fun checkStartAddTaskScreen() {
+    fun testStartAddTaskScreen() {
         activity.viewModel.onStartAddTaskScreenObserver.onNext(Unit)
         val startedIntent = shadowOf(activity).nextStartedActivity
         val shadowIntent = shadowOf(startedIntent)
@@ -51,7 +48,7 @@ class TaskListActivityTest {
     }
 
     @Test
-    fun checkDeleteTaskFromList() {
+    fun testDeleteTaskFromList() {
         val testPosition = 3
 
         val adapterMock: TaskListAdapter = mock()
@@ -65,7 +62,7 @@ class TaskListActivityTest {
     }
 
     @Test
-    fun checkSetTaskList() {
+    fun testSetTaskList() {
         activity.apply {
             val adapterMock = TaskListAdapter()
             adapter = adapterMock

@@ -21,8 +21,6 @@ class TaskListAdapter : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
             notifyDataSetChanged()
         }
 
-
-
     override fun onBindViewHolder(holder: TaskViewHolder?, position: Int) {
         holder?.bindingItem?.task = tasks[position]
     }
