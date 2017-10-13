@@ -79,37 +79,37 @@ class AddTaskViewModelTest {
     }
 
     @Test
-    fun getTitle() {
+    fun testGetTitle() {
         assertNotNull(addTaskViewModel.title)
     }
 
     @Test
-    fun getDescription() {
+    fun testGetDescription() {
         assertNotNull(addTaskViewModel.description)
     }
 
     @Test
-    fun getChangeSubmitBackgroundColorObservable() {
+    fun testGetChangeSubmitBackgroundColorObservable() {
         assertNotNull(addTaskViewModel.changeSubmitBackgroundColorObservable)
     }
 
     @Test
-    fun getTitleErrorObservable() {
+    fun testGetTitleErrorObservable() {
         assertNotNull(addTaskViewModel.titleErrorObservable)
     }
 
     @Test
-    fun getHideKeyboardObservable() {
+    fun testGetHideKeyboardObservable() {
         assertNotNull(addTaskViewModel.hideKeyboardObservable)
     }
 
     @Test
-    fun getCloseActivityObservable() {
+    fun testGetCloseActivityObservable() {
         assertNotNull(addTaskViewModel.closeActivityObservable)
     }
 
     @Test
-    fun submitWithNullAndEmptyTitle() {
+    fun testSubmitWithNullAndEmptyTitle() {
         val observerForHideKeyboard: Observer<Boolean> = mock()
         val observerTitleError: Observer<String> = mock()
 
@@ -128,7 +128,7 @@ class AddTaskViewModelTest {
     }
 
     @Test
-    fun submit() {
+    fun testSubmit() {
         val observerForHideKeyboard: Observer<Boolean> = mock()
         val observerTitleError: Observer<String> = mock()
         val observerCloseActivity: io.reactivex.Observer<Unit> = mock()
@@ -159,7 +159,7 @@ class AddTaskViewModelTest {
     }
 
     @Test
-    fun onTextChanged() {
+    fun testTextChanged() {
         val observer: Observer<String> = mock()
 
         addTaskViewModel.titleErrorObservable.observeForever(observer)
@@ -169,7 +169,7 @@ class AddTaskViewModelTest {
     }
 
     @Test
-    fun onCheckedChanged() {
+    fun testCheckedChanged() {
         val firstViewId = 1100
         val secondViewId = 1101
         val thirdViewId = 1110

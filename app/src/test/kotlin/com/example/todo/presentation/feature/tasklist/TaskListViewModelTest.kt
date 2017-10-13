@@ -55,22 +55,22 @@ class TaskListViewModelTest {
     }
 
     @Test
-    fun getOnStartAddTaskScreenObserver() {
+    fun testGetOnStartAddTaskScreenObserver() {
         assertNotNull(taskListViewModel.onStartAddTaskScreenObserver)
     }
 
     @Test
-    fun getOnDeleteTaskObserver() {
+    fun testGetOnDeleteTaskObserver() {
         assertNotNull(taskListViewModel.onDeleteTaskObserver)
     }
 
     @Test
-    fun getListTaskObservable() {
+    fun testGetListTaskObservable() {
         assertNotNull(taskListViewModel.listTaskObservable)
     }
 
     @Test
-    fun showAddTaskScreen() {
+    fun testShowAddTaskScreen() {
         val view = mock(View::class.java)
         val observer: Observer<in Unit> = mock()
 
@@ -80,7 +80,7 @@ class TaskListViewModelTest {
     }
 
     @Test
-    fun deleteTask() {
+    fun testDeleteTask() {
         val positionTest = 10
         val idTest = 42L
         val testTask = Task(idTest)
@@ -96,7 +96,7 @@ class TaskListViewModelTest {
     }
 
     @Test
-    fun getTaskList() {
+    fun testGetTaskList() {
         val listMock: List<Task> = mock()
         `when`(dataManager.getTasks()).thenReturn(Flowable.just(listMock))
 
@@ -109,14 +109,14 @@ class TaskListViewModelTest {
     }
 
     @Test
-    fun onResume() {
+    fun testOnResume() {
         doNothing().`when`(taskListViewModel).getTaskList()
         taskListViewModel.onResume()
         verify(taskListViewModel).getTaskList()
     }
 
     @Test
-    fun onDestroy() {
+    fun testOnDestroy() {
         val compositeDisposable: CompositeDisposable = mock()
         Whitebox.setInternalState(taskListViewModel, COMPOSITE_DISPOSABLE_FIELD, compositeDisposable)
         taskListViewModel.onDestroy()

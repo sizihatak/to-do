@@ -26,7 +26,7 @@ class AddTaskActivityTest {
     }
 
     @Test
-    fun checkNotNullActivity() {
+    fun testNotNullActivity() {
         assertNotNull(activity)
         activity.apply {
             assertNotNull(viewModel)
@@ -37,7 +37,7 @@ class AddTaskActivityTest {
     }
 
     @Test
-    fun checkTitleError() {
+    fun testTitleError() {
         val testString = "Test String"
 
         activity.apply {
@@ -51,14 +51,14 @@ class AddTaskActivityTest {
     }
 
     @Test
-    fun checkCloseActivity() {
+    fun testCloseActivity() {
         val shadowActivity = Shadows.shadowOf(activity)
         activity.viewModel.closeActivityObservable.onNext(Unit)
         assertTrue(shadowActivity.isFinishing)
     }
 
     @Test
-    fun checkСhangeSubmitBackgroundColor() {
+    fun testСhangeSubmitBackgroundColor() {
         val testColor = 43
         val buttonMock : Button = mock()
         activity.apply {
