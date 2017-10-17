@@ -6,14 +6,12 @@ import com.example.todo.data.db.provider.TaskContract
 import com.example.todo.presentation.model.Task
 import com.nhaarman.mockito_kotlin.any
 import mock
-
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
-
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows
@@ -35,7 +33,7 @@ class DataManagerImplTest {
     }
 
     @Test
-    fun deleteTask() {
+    fun testDeleteTask() {
         val testTaskId = "3"
         val expectedUriString = TaskContract.TaskEntry.CONTENT_URI.buildUpon().appendPath(testTaskId).build().toString()
 
@@ -51,7 +49,7 @@ class DataManagerImplTest {
     }
 
     @Test
-    fun saveTask() {
+    fun testSaveTask() {
         val testId = 3L
         val testTitle = "title"
         val testDescription = "description"
@@ -72,13 +70,13 @@ class DataManagerImplTest {
     }
 
     @Test
-    fun getTasks() {
+    fun testGetTasks() {
         dataManagerImpl.getTasks().subscribe()
         assertEquals(1, shadowContentResolver.getContentObservers(TaskContract.TaskEntry.CONTENT_URI).size)
     }
 
     @Test
-    fun fromCursorToTasks() {
+    fun testFromCursorToTasks() {
         val cursor: Cursor = mock()
         val dumbString = "test String"
         val dumbInt = 42

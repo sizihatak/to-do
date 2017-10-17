@@ -38,7 +38,7 @@ class DataManagerWithRoomImplTest {
     }
 
     @Test
-    fun saveTask() {
+    fun testSaveTask() {
         dataManager.saveTask(testTask).subscribe()
 
         argumentCaptor<TaskEntity>().apply {
@@ -51,7 +51,7 @@ class DataManagerWithRoomImplTest {
     }
 
     @Test
-    fun getTasks() {
+    fun testGetTasks() {
         val listTask = mutableListOf(testTaskEntity)
         Mockito.`when`(taskDao.getTasks()).thenReturn(Flowable.just(listTask))
 
@@ -60,7 +60,7 @@ class DataManagerWithRoomImplTest {
     }
 
     @Test
-    fun deleteTask() {
+    fun testDeleteTask() {
         val testId = "3"
         dataManager.deleteTask(testId).subscribe()
         verify(taskDao).deleteTask(testId)
