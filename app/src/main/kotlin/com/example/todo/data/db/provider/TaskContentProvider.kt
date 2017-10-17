@@ -28,7 +28,6 @@ class TaskContentProvider : ContentProvider() {
     lateinit var taskDbHelper: TaskDbHelper
 
     override fun onCreate(): Boolean {
-        TaskContract.AUTHORITY
         taskDbHelper = TaskDbHelper(context)
         return true
     }
