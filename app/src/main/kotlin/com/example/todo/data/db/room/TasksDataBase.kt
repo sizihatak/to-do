@@ -12,7 +12,8 @@ class TasksDataBase : RoomDatabase() {
 
     companion object {
 
-        @Volatile private var INSTANCE: TasksDataBase? = null
+        // TODO implement creation of TasksDataBase with Dagger
+        @Volatile var INSTANCE: TasksDataBase? = null
 
         fun getInstance(context: Context): TasksDataBase =
                 INSTANCE ?: synchronized(this) {
