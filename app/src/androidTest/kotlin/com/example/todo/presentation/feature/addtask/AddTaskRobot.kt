@@ -22,11 +22,12 @@ class AddTaskRobot : ScreenRobot() {
         return this
     }
 
-    fun titleHint(stringHint: String): AddTaskRobot =
-            checkHint(R.id.editText_addTask_title, stringHint)
+    fun titleHint(@StringRes stringId: Int): AddTaskRobot =
+            checkHint(R.id.textInput_addTask_title, app.getString(stringId))
 
-    fun descriptionHint(stringHint: String): AddTaskRobot =
-            checkHint(R.id.editText_addTask_title, stringHint)
+
+    fun descriptionHint(@StringRes stringId: Int): AddTaskRobot =
+            checkHint(R.id.textInput_addTask_description, app.getString(stringId))
 
     fun clickOnCheckBox(checkBoxPriority: Priority): AddTaskRobot =
             when (checkBoxPriority) {
@@ -35,14 +36,27 @@ class AddTaskRobot : ScreenRobot() {
                 Priority.LOW -> clickOn(R.id.radioButton_addTask_priorityLow)
             }
 
-    fun clickOnSubmit() : AddTaskRobot =
+    fun checkCheckBoxIsChecked(checkBoxPriority: Priority): AddTaskRobot =
+            when (checkBoxPriority) {
+                Priority.HIGH -> checkIsChecked(R.id.radioButton_addTask_priorityHigh)
+                Priority.MEDIUM -> checkIsChecked(R.id.radioButton_addTask_priorityMedium)
+                Priority.LOW -> checkIsChecked(R.id.radioButton_addTask_priorityLow)
+            }
+
+    fun clickOnSubmit(): AddTaskRobot =
             clickOn(R.id.button_addTask_submit)
 
-    fun checkButtonColor(@ColorRes colorId: Int) : AddTaskRobot{
-            val color = ContextCompat.getColor(app, colorId)
-            return checkBackgroundColor(R.id.button_addTask_submit, color)
+    fun checkButtonColor(@ColorRes colorId: Int): AddTaskRobot {
+        val color = ContextCompat.getColor(app, colorId)
+        return checkBackgroundColor(R.id.button_addTask_submit, color)
     }
 
-    fun checkTitleError(@StringRes stringId: Int) : AddTaskRobot =
+    fun checkTitleError(@StringRes stringId: Int): AddTaskRobot =
             checkError(R.id.textInput_addTask_title, app.getString(stringId))
+
+    fun fillTitle(text: String): AddTaskRobot =
+            enterText(R.id.editText_addTask_title, text)
+
+    fun fillDescroption(text: String): AddTaskRobot =
+            enterText(R.id.editText_addTask_description, text)
 }
