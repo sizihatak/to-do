@@ -4,12 +4,12 @@ import android.graphics.drawable.ColorDrawable
 import android.support.design.widget.TextInputLayout
 import android.support.test.espresso.matcher.BoundedMatcher
 import android.view.View
+import android.view.ViewGroup
 import org.hamcrest.BaseMatcher
 import org.hamcrest.Description
 import org.hamcrest.Matcher
+import org.hamcrest.TypeSafeMatcher
 import java.lang.reflect.InvocationTargetException
-
-
 
 
 fun withCustomHint(s: String): Matcher<View> {
@@ -65,6 +65,19 @@ fun withError(s: String): Matcher<View> {
                 return s == error.toString()
             }
             return false
+        }
+    }
+}
+
+fun hasChildren(numChildrenMatcher: Matcher<Int>): Matcher<View> {
+    return object : TypeSafeMatcher<View>() {
+
+        override fun matchesSafely(view: View): Boolean =
+                view is ViewGroup && numChildrenMatcher.matches(view.childCount)
+
+        override fun describeTo(description: Description) {
+            description.appendText(" a view with # children is ")
+            numChildrenMatcher.describeTo(description)
         }
     }
 }

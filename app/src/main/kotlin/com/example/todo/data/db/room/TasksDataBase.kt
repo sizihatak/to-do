@@ -19,10 +19,18 @@ class TasksDataBase : RoomDatabase() {
                 INSTANCE ?: synchronized(this) {
                     INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
                 }
+        fun getLocalInstance(context: Context): TasksDataBase =
+                INSTANCE ?: synchronized(this) {
+                    INSTANCE ?: buildDatabaseLocal(context).also { INSTANCE = it }
+                }
 
         private fun buildDatabase(context: Context) =
                 Room.databaseBuilder(context.applicationContext,
                         TasksDataBase::class.java, "Sample.db")
                         .build()
+
+        private fun buildDatabaseLocal(context: Context) =
+                Room.inMemoryDatabaseBuilder(context,
+                        TasksDataBase::class.java).allowMainThreadQueries().build()
     }
 }

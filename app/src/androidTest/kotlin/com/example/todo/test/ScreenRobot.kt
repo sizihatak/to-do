@@ -3,14 +3,20 @@ package com.example.todo.test
 import android.support.annotation.IdRes
 import android.support.annotation.StringRes
 import android.support.test.espresso.Espresso
-import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.assertion.ViewAssertions
-import android.support.test.espresso.matcher.ViewMatchers
-import org.hamcrest.CoreMatchers
-import android.support.test.espresso.matcher.ViewMatchers.withClassName
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions.*
-import android.support.test.espresso.core.deps.guava.base.CharMatcher.`is`
+import android.support.test.espresso.ViewAction
+import android.support.test.espresso.action.ViewActions
+import android.support.test.espresso.action.ViewActions.typeText
+import android.support.test.espresso.assertion.ViewAssertions
+import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.contrib.RecyclerViewActions
+import android.support.test.espresso.matcher.ViewMatchers
+import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
+import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.support.v7.widget.RecyclerView
+import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.Matchers.allOf
 
 
 open class ScreenRobot {
@@ -19,6 +25,21 @@ open class ScreenRobot {
             Espresso.onView(ViewMatchers.withId(viewId))
                     .check(ViewAssertions.matches(CoreMatchers.not(ViewMatchers.isDisplayed())))
         }
+        return this as T
+    }
+
+    protected fun <T : ScreenRobot> checkIsVisible(@IdRes vararg viewIds: Int): T {
+        for (viewId in viewIds) {
+            Espresso.onView(ViewMatchers.withId(viewId))
+                    .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        }
+        return this as T
+    }
+
+    protected fun <T : ScreenRobot, VH: RecyclerView.ViewHolder>
+            swipeItemOfRecyclerView(@IdRes viewId: Int, position: Int, action: ViewAction): T {
+        onView(withId(viewId)).perform(
+                RecyclerViewActions.actionOnItemAtPosition<VH>(position, action))
         return this as T
     }
 
@@ -86,4 +107,14 @@ open class ScreenRobot {
         onView(ViewMatchers.withId(viewId)).perform(typeText(text))
         return this as T
     }
+
+    protected fun <T : ScreenRobot> checkChildrenCount(@IdRes viewId: Int, count: Int): T {
+        onView(withId(viewId)).check(matches(allOf(
+                isDisplayed(),
+                hasChildren(`is`(count))
+        )))
+        return this as T
+    }
+
+
 }

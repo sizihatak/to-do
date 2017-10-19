@@ -7,6 +7,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.v4.content.ContextCompat
 import com.example.todo.R
 import com.example.todo.ToDoApplication
+import com.example.todo.data.DataManagerWithLocalRoom
 import com.example.todo.test.ScreenRobot
 
 class AddTaskRobot : ScreenRobot() {
@@ -15,6 +16,7 @@ class AddTaskRobot : ScreenRobot() {
         HIGH, MEDIUM, LOW
     }
 
+    private val dataBaseManager: DataManagerWithLocalRoom = DataManagerWithLocalRoom(InstrumentationRegistry.getTargetContext())
     private val app = InstrumentationRegistry.getTargetContext().applicationContext as ToDoApplication
 
     fun launch(rule: ActivityTestRule<AddTaskActivity>): AddTaskRobot {
@@ -59,4 +61,9 @@ class AddTaskRobot : ScreenRobot() {
 
     fun fillDescroption(text: String): AddTaskRobot =
             enterText(R.id.editText_addTask_description, text)
+
+    fun deleteTasks(): AddTaskRobot {
+        dataBaseManager.dataBase.taskDao().clearTasks()
+        return this
+    }
 }

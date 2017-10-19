@@ -15,4 +15,7 @@ interface TaskDao {
 
     @Query("SELECT * FROM tasks ORDER BY priority ASC")
     fun getTasks(): Flowable<List<TaskEntity>>
+
+    @Query("DELETE FROM tasks")
+    fun clearTasks()
 }

@@ -4,6 +4,7 @@ import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.example.todo.R
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,5 +46,17 @@ class AddTaskScreenTest {
                 .checkButtonColor(R.color.materialYellow)
                 .clickOnCheckBox(AddTaskRobot.Priority.HIGH)
                 .checkButtonColor(R.color.materialRed)
+    }
+
+    @Test
+    fun addTask() {
+        AddTaskRobot()
+                .launch(activityRule)
+                .fillTitle("Test title integration")
+                .fillDescroption("Test description integration")
+                .clickOnCheckBox(AddTaskRobot.Priority.MEDIUM)
+                .clickOnSubmit()
+                .deleteTasks()
+        assertTrue(activityRule.activity.isFinishing)
     }
 }
