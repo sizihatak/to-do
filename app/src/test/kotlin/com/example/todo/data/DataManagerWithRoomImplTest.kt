@@ -24,23 +24,14 @@ import org.robolectric.annotation.Config
 class DataManagerWithRoomImplTest {
 
     private lateinit var taskDao: TaskDao
-    private lateinit var dataManager: DataManager
+    private lateinit var dataManager: DataManagerRoomMock
     private val testTaskEntity = TaskEntity(3L, "titleTaskEntity", "descriptionTaskEntity", 1)
     private val testTask = Task(4L, "titleTask", "descriptionTask", 2)
 
     @Before
     fun setup() {
-        val tasksDataBase: TasksDataBase = mock()
-        taskDao = mock()
-
-        TasksDataBase.INSTANCE = tasksDataBase
-        Mockito.`when`(tasksDataBase.taskDao()).thenReturn(taskDao)
-        dataManager = DataManagerWithRoomImpl(RuntimeEnvironment.application)
-    }
-
-    @After
-    fun clearTasksDataBaseToNull(){
-        TasksDataBase.INSTANCE = null
+        dataManager = DataManagerRoomMock(RuntimeEnvironment.application)
+        taskDao = dataManager.taskDao
     }
 
     @Test

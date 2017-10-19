@@ -8,4 +8,5 @@ interface DataManager {
     fun saveTask(task: Task): Completable
     fun getTasks(): Flowable<List<Task>>
     fun deleteTask(id: String): Completable
+    fun clearTasks(): Completable
 }

@@ -10,7 +10,7 @@ import com.example.todo.ToDoApplication
 import com.example.todo.data.DataManagerWithLocalRoom
 import com.example.todo.test.ScreenRobot
 
-class AddTaskRobot : ScreenRobot() {
+class AddTaskRobot(private val rule: ActivityTestRule<AddTaskActivity>) : ScreenRobot() {
 
     enum class Priority {
         HIGH, MEDIUM, LOW
@@ -19,7 +19,7 @@ class AddTaskRobot : ScreenRobot() {
     private val dataBaseManager: DataManagerWithLocalRoom = DataManagerWithLocalRoom(InstrumentationRegistry.getTargetContext())
     private val app = InstrumentationRegistry.getTargetContext().applicationContext as ToDoApplication
 
-    fun launch(rule: ActivityTestRule<AddTaskActivity>): AddTaskRobot {
+    fun launch(): AddTaskRobot {
         rule.launchActivity(null)
         return this
     }
@@ -63,7 +63,7 @@ class AddTaskRobot : ScreenRobot() {
             enterText(R.id.editText_addTask_description, text)
 
     fun deleteTasks(): AddTaskRobot {
-        dataBaseManager.dataBase.taskDao().clearTasks()
+        dataBaseManager.clearTasks()
         return this
     }
 }

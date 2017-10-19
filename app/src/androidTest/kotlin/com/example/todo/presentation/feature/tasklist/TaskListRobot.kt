@@ -11,24 +11,25 @@ import com.example.todo.presentation.model.Task
 import com.example.todo.test.ScreenRobot
 import com.example.todo.toTaskEntity
 
-class TaskListRobot : ScreenRobot() {
+class TaskListRobot(private val rule: IntentsTestRule<TaskListActivity>) : ScreenRobot() {
 
-    private val dataBaseManager: DataManagerWithLocalRoom = DataManagerWithLocalRoom(InstrumentationRegistry.getTargetContext())
+    private val dataBaseManager: DataManagerWithLocalRoom = DataManagerWithLocalRoom(InstrumentationRegistry.getTargetContext().applicationContext)
 
-    fun launch(rule: IntentsTestRule<TaskListActivity>): TaskListRobot {
+    fun launch(): TaskListRobot {
         rule.launchActivity(null)
         return this
     }
 
     fun createTask(count: Int): TaskListRobot {
-        for (i in 0..count)
-            dataBaseManager.dataBase.taskDao().insertTask(
-                    Task(title = "Title $i", description = "description $i", priority = i % 3).toTaskEntity())
+        for (i in 1..count)
+            dataBaseManager.saveTask(
+                    Task(title = "Title $i", description = "description $i", priority = i % 3))
+                    .subscribe()
         return this
     }
 
     fun deleteTasks(): TaskListRobot {
-        dataBaseManager.dataBase.taskDao().clearTasks()
+        dataBaseManager.clearTasks().subscribe()
         return this
     }
 
@@ -48,6 +49,6 @@ class TaskListRobot : ScreenRobot() {
 
 
     fun checkTasksCount(count: Int): TaskListRobot =
-        checkChildrenCount(R.id.rv_main_tasklist, count)
+            checkChildrenCount(R.id.rv_main_tasklist, count)
 
 }

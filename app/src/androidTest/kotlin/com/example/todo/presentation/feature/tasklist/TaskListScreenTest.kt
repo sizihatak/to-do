@@ -19,26 +19,26 @@ class TaskListScreenTest {
 
     @Test
     fun startScreenWithTasks() {
-        TaskListRobot()
+        TaskListRobot(activityRule)
                 .createTask(4)
-                .launch(activityRule)
+                .launch()
                 .listVisible()
                 .deleteTasks()
     }
 
     @Test
     fun clickOnFab() {
-        TaskListRobot()
-                .launch(activityRule)
+        TaskListRobot(activityRule)
+                .launch()
                 .clickOnAddTask()
                 .checkStartScreen(AddTaskActivity::class.java)
     }
 
     @Test
     fun swipeTask() {
-        TaskListRobot()
+        TaskListRobot(activityRule)
                 .createTask(4)
-                .launch(activityRule)
+                .launch()
                 .leftSwipeTask(1)
                 .checkTasksCount(3)
                 .deleteTasks()

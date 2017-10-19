@@ -20,8 +20,8 @@ class AddTaskScreenTest {
 
     @Test
     fun startScreen() {
-        AddTaskRobot()
-                .launch(activityRule)
+        AddTaskRobot(activityRule)
+                .launch()
                 .titleHint(R.string.addTask_title)
                 .descriptionHint(R.string.addTask_description)
                 .checkButtonColor(R.color.materialRed)
@@ -30,16 +30,16 @@ class AddTaskScreenTest {
 
     @Test
     fun submitWithoutTitle() {
-        AddTaskRobot()
-                .launch(activityRule)
+        AddTaskRobot(activityRule)
+                .launch()
                 .clickOnSubmit()
                 .checkTitleError(R.string.error_addTask_emptyField)
     }
 
     @Test
     fun clicksOnCheckBox() {
-        AddTaskRobot()
-                .launch(activityRule)
+        AddTaskRobot(activityRule)
+                .launch()
                 .clickOnCheckBox(AddTaskRobot.Priority.MEDIUM)
                 .checkButtonColor(R.color.materialOrange)
                 .clickOnCheckBox(AddTaskRobot.Priority.LOW)
@@ -50,8 +50,8 @@ class AddTaskScreenTest {
 
     @Test
     fun addTask() {
-        AddTaskRobot()
-                .launch(activityRule)
+        AddTaskRobot(activityRule)
+                .launch()
                 .fillTitle("Test title integration")
                 .fillDescroption("Test description integration")
                 .clickOnCheckBox(AddTaskRobot.Priority.MEDIUM)

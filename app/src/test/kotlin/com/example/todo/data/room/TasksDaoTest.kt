@@ -34,6 +34,11 @@ class TasksDaoTest {
         RxAndroidPlugins.setMainThreadSchedulerHandler { Schedulers.trampoline() }
     }
 
+    @After
+    fun closeDb() {
+        mDatabase.close()
+    }
+
     @Test
     fun testInsertTaskAndGetTask() {
         mDatabase.taskDao().insertTask(testTask)
@@ -67,10 +72,5 @@ class TasksDaoTest {
         testSubscriber.await(1000, TimeUnit.MILLISECONDS)
 
         testSubscriber.assertNoValues()
-    }
-
-    @After
-    fun closeDb() {
-        mDatabase.close()
     }
 }

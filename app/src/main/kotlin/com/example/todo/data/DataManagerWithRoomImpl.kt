@@ -10,10 +10,8 @@ import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.internal.operators.completable.CompletableFromAction
 
-open class DataManagerWithRoomImpl (context: Context) : DataManager {
-
-    open protected val taskDao: TaskDao =
-            TasksDataBase.getInstance(context).taskDao()
+open class DataManagerWithRoomImpl(context: Context) : DataManager {
+    open protected val taskDao: TaskDao = TasksDataBase.getInstance(context).taskDao()
 
     override fun saveTask(taskView: Task): Completable = CompletableFromAction {
         taskDao.insertTask(taskView.toTaskEntity())
@@ -24,4 +22,7 @@ open class DataManagerWithRoomImpl (context: Context) : DataManager {
 
     override fun deleteTask(id: String): Completable =
             CompletableFromAction { taskDao.deleteTask(id) }
+
+    override fun clearTasks(): Completable =
+            CompletableFromAction { taskDao.clearTasks() }
 }
