@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply from: 'jacoco.gradle'
 
 android {
     compileSdkVersion 26
@@ -15,6 +16,9 @@ android {
         testInstrumentationRunner "com.example.todo.MockTestRunner"
     }
     buildTypes {
+        debug{
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
