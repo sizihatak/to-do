@@ -9,11 +9,11 @@ import com.example.todo.toTaskEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.internal.operators.completable.CompletableFromAction
-import javax.inject.Inject
 
-class DataManagerWithRoomImpl @Inject constructor(application: Application) : DataManager {
+open class DataManagerWithRoomImpl (application: Application) : DataManager {
 
-    private val taskDao: TaskDao = TasksDataBase.getInstance(application).taskDao()
+    open protected val taskDao: TaskDao =
+            TasksDataBase.getInstance(application).taskDao()
 
     override fun saveTask(taskView: Task): Completable = CompletableFromAction {
         taskDao.insertTask(taskView.toTaskEntity())

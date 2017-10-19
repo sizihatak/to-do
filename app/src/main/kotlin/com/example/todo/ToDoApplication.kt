@@ -11,9 +11,10 @@ open class ToDoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent.builder()
-                .appModule(AppModule(this))
-                .build()
-        appComponent.inject(this)
+        createComponent().also{appComponent = it}.inject(this)
     }
+
+    open protected fun createComponent(): AppComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
 }

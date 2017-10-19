@@ -8,7 +8,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val app: Application) {
+open class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
@@ -16,6 +16,6 @@ class AppModule(private val app: Application) {
 
     @Provides
     @Singleton
-    internal fun provideDataManager(dataManager: DataManagerWithRoomImpl): DataManager = dataManager
+    open internal fun provideDataManager(): DataManager = DataManagerWithRoomImpl(app)
 
 }
