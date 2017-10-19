@@ -9,6 +9,7 @@ import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.verify
 import io.reactivex.Flowable
 import mock
+import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -35,6 +36,11 @@ class DataManagerWithRoomImplTest {
         TasksDataBase.INSTANCE = tasksDataBase
         Mockito.`when`(tasksDataBase.taskDao()).thenReturn(taskDao)
         dataManager = DataManagerWithRoomImpl(RuntimeEnvironment.application)
+    }
+
+    @After
+    fun clearTasksDataBaseToNull(){
+        TasksDataBase.INSTANCE = null
     }
 
     @Test
