@@ -1,10 +1,10 @@
 package com.example.todo.presentation.feature.tasklist
 
-import android.arch.lifecycle.LifecycleActivity
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -16,7 +16,7 @@ import com.example.todo.di.module.ActivityModule
 import com.example.todo.presentation.feature.addtask.AddTaskActivity
 import javax.inject.Inject
 
-class TaskListActivity : LifecycleActivity() {
+class TaskListActivity : AppCompatActivity() {
     lateinit var binding: ActivityTasklistBinding
 
     lateinit var adapter: TaskListAdapter
@@ -47,7 +47,7 @@ class TaskListActivity : LifecycleActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
                 viewHolder?.let {
                     val position = viewHolder.layoutPosition
-                    binding.viewModel.deleteTask(position, adapter.tasks[position])
+                    binding.viewModel?.deleteTask(position, adapter.tasks[position])
                 }
             }
 

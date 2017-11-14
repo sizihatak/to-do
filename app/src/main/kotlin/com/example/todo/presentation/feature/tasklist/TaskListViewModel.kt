@@ -19,7 +19,7 @@ class TaskListViewModel @Inject constructor(application: Application,
     val onStartAddTaskScreenObserver: PublishSubject<Unit> = PublishSubject.create()
     val onDeleteTaskObserver: PublishSubject<Int> = PublishSubject.create()
     val listTaskObservable: MutableLiveData<List<Task>> = MutableLiveData()
-    val disposable = CompositeDisposable()
+    private val disposable = CompositeDisposable()
 
     init {
         lifecycle.addObserver(this)

@@ -1,10 +1,10 @@
 package com.example.todo.presentation.feature.addtask
 
-import android.arch.lifecycle.LifecycleActivity
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
 import com.example.todo.R
 import com.example.todo.ToDoApplication
@@ -13,7 +13,7 @@ import com.example.todo.di.DaggerActivityComponent
 import com.example.todo.di.module.ActivityModule
 import javax.inject.Inject
 
-class AddTaskActivity : LifecycleActivity() {
+class AddTaskActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAddTaskBinding
 
@@ -32,7 +32,7 @@ class AddTaskActivity : LifecycleActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task)
         binding.viewModel = viewModel
-        subscribeToModel(binding.viewModel)
+        subscribeToModel(binding.viewModel as AddTaskViewModel)
     }
 
     fun subscribeToModel(viewModel: AddTaskViewModel) {

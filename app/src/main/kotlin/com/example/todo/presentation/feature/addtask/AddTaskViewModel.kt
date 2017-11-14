@@ -59,10 +59,11 @@ class AddTaskViewModel
     fun onCheckedChanged(radioGroup: RadioGroup, id: Int) {
         hideKeyboardObservable.value = true
         currentTaskPriority = radioGroup.indexOfChild(radioGroup.findViewById(id))
-        when (currentTaskPriority) {
-            0 -> changeSubmitBackgroundColorObservable.value = red
-            1 -> changeSubmitBackgroundColorObservable.value = orange
-            2 -> changeSubmitBackgroundColorObservable.value = yellow
-        }
+        changeSubmitBackgroundColorObservable.value =
+                when (currentTaskPriority) {
+                    0 -> red
+                    1 -> orange
+                    else -> yellow
+                }
     }
 }
