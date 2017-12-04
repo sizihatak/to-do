@@ -8,7 +8,7 @@ import dagger.Component
 
 
 @PerActivity
-@Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(ActivityModule::class))
+@Component(dependencies = [AppComponent::class], modules = [ActivityModule::class])
 interface ActivityComponent {
     fun inject(activity: TaskListActivity)
     fun inject(activity: AddTaskActivity)

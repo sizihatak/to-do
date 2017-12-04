@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">ToDo</string>
 
+    <!--Login Screen-->
+    <string name="login_email">EMAIL</string>
+    <string name="login_password">PASSWORD</string>
+
     <!--AddTask Screen-->
     <string name="addTask_title">TITLE</string>
     <string name="addTask_description">DESCRIPTION</string>
