@@ -7,10 +7,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
 import com.example.todo.R
-import com.example.todo.ToDoApplication
 import com.example.todo.databinding.ActivityAddTaskBinding
-import com.example.todo.di.DaggerActivityComponent
-import com.example.todo.di.module.ActivityModule
+
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class AddTaskActivity : AppCompatActivity() {
@@ -21,14 +20,9 @@ class AddTaskActivity : AppCompatActivity() {
     lateinit var viewModel: AddTaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_task)
-
-        DaggerActivityComponent.builder()
-                .activityModule(ActivityModule(this))
-                .appComponent((application as ToDoApplication).appComponent)
-                .build()
-                .inject(this)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task)
         binding.viewModel = viewModel

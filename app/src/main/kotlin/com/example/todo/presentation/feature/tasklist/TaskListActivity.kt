@@ -9,11 +9,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import com.example.todo.R
-import com.example.todo.ToDoApplication
 import com.example.todo.databinding.ActivityTasklistBinding
-import com.example.todo.di.DaggerActivityComponent
-import com.example.todo.di.module.ActivityModule
+
 import com.example.todo.presentation.feature.addtask.AddTaskActivity
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class TaskListActivity : AppCompatActivity() {
@@ -25,14 +24,9 @@ class TaskListActivity : AppCompatActivity() {
     lateinit var viewModel: TaskListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tasklist)
-
-        DaggerActivityComponent.builder()
-                .activityModule(ActivityModule(this))
-                .appComponent((application as ToDoApplication).appComponent)
-                .build()
-                .inject(this)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_tasklist)
         binding.viewModel = viewModel
