@@ -13,8 +13,8 @@ import io.reactivex.internal.operators.completable.CompletableFromAction
 open class DataManagerWithRoomImpl(context: Context) : DataManager {
     open protected val taskDao: TaskDao = TasksDataBase.getInstance(context).taskDao()
 
-    override fun saveTask(taskView: Task): Completable = CompletableFromAction {
-        taskDao.insertTask(taskView.toTaskEntity())
+    override fun saveTask(task: Task): Completable = CompletableFromAction {
+        taskDao.insertTask(task.toTaskEntity())
     }
 
     override fun getTasks(): Flowable<List<Task>> =
